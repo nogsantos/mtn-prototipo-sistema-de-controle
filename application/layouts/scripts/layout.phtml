@@ -1,0 +1,134 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('Zend Framework Tutorial');
+echo $this->doctype(); 
+?>
+<!DOCTYPE html>
+    <!--[if lt IE 7]>
+          <html class="no-js lt-ie9 lt-ie8 lt-ie7"> 
+    <![endif]-->
+    <!--[if IE 7]>
+         <html class="no-js lt-ie9 lt-ie8"> 
+     <![endif]-->
+    <!--[if IE 8]> 
+        <html class="no-js lt-ie9"> 
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <html class="no-js"> 
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.min.css'); ?>
+        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap-responsive.min.css'); ?>
+        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/main.css'); ?>
+        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/site.css'); ?>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js' ?>"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->       
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">All Maker</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">                            
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Financeiro<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo $this->url(array('controller'=>'index','action'=>'add'));?>">Album</a></li>
+                                    <li><a href="#">Recibo</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Biblioteca<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Livros</a></li>
+                                    <li><a href="#">Empr&eacute;stimo</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Semin&aacute;rio<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Turmas</a></li>
+                                    <li><a href="#">Di&aacute;rio</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pessoas<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Alunos</a></li>
+                                    <li><a href="#">Professores</a></li>
+                                    <li><a href="#">Mat&eacute;rias</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relat&oacute;rios<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-header">Financeiro</li>
+                                    <li><a href="#">Recibos</a></li>
+                                    <li class="divider"></li>
+                                    <li class="nav-header">Biblioteca</li>
+                                    <li><a href="#">Livros</a></li>
+                                    <li><a href="#">Empr&eacute;stimos</a></li>
+                                    <li class="divider"></li>
+                                    <li class="nav-header">Semin&aacute;rio</li>
+                                    <li><a href="#">Alunos</a></li>
+                                    <li><a href="#">Professores</a></li>
+                                    <li><a href="#">Mat&eacute;rias</a></li>
+                                    <li><a href="#">Turmas</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+<!--                        <form class="navbar-form pull-right">
+                            <input class="span2" type="text" placeholder="Email">
+                            <input class="span2" type="password" placeholder="Password">
+                            <button type="submit" class="btn">Sign in</button>
+                        </form>
+-->                        
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="container">      
+            <div id="content">
+                <h1><?php echo $this->escape($this->title); ?></h1>
+                <?php echo $this->layout()->content; ?>
+            </div>        
+            <hr>
+            <footer>
+                <p>&copy; Company 2012</p>
+            </footer>
+        </div> <!-- /container -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="<?php print $this->baseUrl()?>/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/bootstrap.min.js' ?>"></script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/plugins.js' ?>"></script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/main.js' ?>"></script>        
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
+
