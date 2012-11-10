@@ -1,15 +1,17 @@
 <?php
 
-class IndexController extends Zend_Controller_Action {
+class SeMateriasController extends Zend_Controller_Action {
 
     public function init() {
-        /* Initialize action controller here */
+        /*
+         * Define o controller ativo
+         */
+        $this->view->assign('classActive', 'seminario');
     }
 
     public function indexAction() {
-        
+        // action body
     }
-
     /**
      * Redirecionamento para a página inicial do formulário
      */

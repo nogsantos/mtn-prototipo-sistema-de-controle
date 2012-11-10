@@ -1,8 +1,18 @@
 <?php
-$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
-$this->headTitle()->setSeparator(' - ');
-$this->headTitle('Zend Framework Tutorial');
-echo $this->doctype(); 
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+    $this->headTitle()->setSeparator(' - ');
+    $this->headTitle('SCO-MTN');
+    echo $this->doctype(); 
+    /*
+     * Foco link menu
+     */
+    switch ($this->classActive) {
+       case 'financeiro': $this->financeiro = true; break;
+       case 'biblioteca': $this->biblioteca = true; break;
+       case 'seminario': $this->seminario = true; break;
+       case 'pessoas': $this->pessoas = true; break;
+       case 'relatorios': $this->relatorios = true; break;
+    }
 ?>
 <!DOCTYPE html>
     <!--[if lt IE 7]>
@@ -23,16 +33,10 @@ echo $this->doctype();
         <?php echo $this->headTitle(); ?>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
         <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap.min.css'); ?>
         <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/bootstrap-responsive.min.css'); ?>
         <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/main.css'); ?>
-        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/site.css'); ?>
+        <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/default.css'); ?>
         <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js' ?>"></script>
     </head>
     <body>
@@ -48,46 +52,51 @@ echo $this->doctype();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">All Maker</a>
+                    <a class="brand" href="<?php echo $this->url(array('controller'=>'index','action'=>'grid'));?>">SCO-MTN</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">                            
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Financeiro<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle <?php echo $this->financeiro ? 'active' : ''?>" data-toggle="dropdown">Financeiro<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->url(array('controller'=>'index','action'=>'add'));?>">Album</a></li>
-                                    <li><a href="#">Recibo</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'fi-recibos','action'=>'grid'));?>">Recibo</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Biblioteca<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle <?php echo $this->biblioteca ? 'active' : ''?>" data-toggle="dropdown">Biblioteca<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Livros</a></li>
-                                    <li><a href="#">Empr&eacute;stimo</a></li>
+                                    <li class="nav-header">Livros</li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-editoras','action'=>'grid'));?>">Editora</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-autores','action'=>'grid'));?>">Autor</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-generos','action'=>'grid'));?>">Genero</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-livros','action'=>'grid'));?>">Livro</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-emprestimos','action'=>'grid'));?>">Empr&eacute;stimo</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Semin&aacute;rio<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle <?php echo $this->seminario ? 'active' : ''?>" data-toggle="dropdown">Semin&aacute;rio<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Turmas</a></li>
-                                    <li><a href="#">Di&aacute;rio</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'se-turmas','action'=>'grid'));?>">Turma</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'se-materias','action'=>'grid'));?>">Mat&eacute;ria</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pessoas<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle <?php echo $this->pessoas ? 'active' : ''?>" data-toggle="dropdown">Pessoas<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Alunos</a></li>
-                                    <li><a href="#">Professores</a></li>
-                                    <li><a href="#">Mat&eacute;rias</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'pe-alunos','action'=>'grid'));?>">Aluno</a></li>
+                                    <li><a href="<?php echo $this->url(array('controller'=>'pe-professores','action'=>'grid'));?>">Professor</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relat&oacute;rios<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle <?php echo $this->relatorios ? 'active' : ''?>" data-toggle="dropdown">Relat&oacute;rios<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-header">Financeiro</li>
                                     <li><a href="#">Recibos</a></li>
                                     <li class="divider"></li>
                                     <li class="nav-header">Biblioteca</li>
-                                    <li><a href="#">Livros</a></li>
+                                    <li><a href="#">Editoras</a></li>
+                                    <li><a href="#">Autores</a></li>
+                                    <li><a href="#">Generos</a></li>
                                     <li><a href="#">Empr&eacute;stimos</a></li>
                                     <li class="divider"></li>
                                     <li class="nav-header">Semin&aacute;rio</li>
@@ -110,12 +119,11 @@ echo $this->doctype();
         </div>
         <div class="container">      
             <div id="content">
-                <h1><?php echo $this->escape($this->title); ?></h1>
                 <?php echo $this->layout()->content; ?>
             </div>        
             <hr>
             <footer>
-                <p>&copy; Company 2012</p>
+                <p>&copy; Miss&atilde;o Tocando as Na&ccedil;&otilde;es <?php echo date('Y')?> - Desenvolvido por: <a href="http://www.nogsantos.com.br" target="_blank">Fabricio Nogueira</a> </p>
             </footer>
         </div> <!-- /container -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>

@@ -1,15 +1,17 @@
 <?php
 
-class IndexController extends Zend_Controller_Action {
+class FiRecibosController extends Zend_Controller_Action {
 
     public function init() {
-        /* Initialize action controller here */
+        /*
+         * Define o controller ativo
+         */
+        $this->view->assign('classActive', 'financeiro');
     }
 
     public function indexAction() {
-        
+        // action body
     }
-
     /**
      * Redirecionamento para a página inicial do formulário
      */

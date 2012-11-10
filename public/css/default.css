@@ -1,0 +1,16 @@
+/* 
+    Document   : default
+    Created on : Nov 10, 2012, 12:34:52 AM
+    Author     : fabricio
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.active{
+    font-weight: bold !important;
+    color: #fff !important;
+}
+

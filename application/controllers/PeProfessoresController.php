@@ -1,13 +1,16 @@
 <?php
 
-class IndexController extends Zend_Controller_Action {
+class PeProfessoresController extends Zend_Controller_Action {
 
     public function init() {
-        /* Initialize action controller here */
+        /*
+         * Define o controller ativo
+         */
+        $this->view->assign('classActive', 'pessoas');
     }
 
     public function indexAction() {
-        
+        // action body
     }
 
     /**
@@ -16,5 +19,6 @@ class IndexController extends Zend_Controller_Action {
     public function gridAction() {
         $this->_helper->redirector('index');
     }
+
 }
 
