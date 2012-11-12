@@ -1,0 +1,30 @@
+<?php
+/**
+ * Formulário de cadastro Editoras
+ */
+$this->title = 'Editora - Cadastrar';
+$this->headTitle($this->title);
+?>
+<form name="form" id="editoras" enctype="application/x-www-form-urlencoded" action="<?php echo $this->url(array('action' => 'cadastrar')); ?>" method="post">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav menu-forms">
+                <li>
+                    <a><button type="submit" class="btn">Cadastrar <i class="icon-check"></i></button></a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'bl-editoras','action' => 'grid',)); ?>"><button class="btn">Cancelar <i class="icon-remove"></i></button></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <fieldset>
+        <legend>Cadastro de Editoras</legend>
+        <label for="desc_nome"><b>Nome*</b></label>
+        <input type="text" name="desc_nome" id="desc_nome" value="" class="input-form" autocomplete="off">
+        <label for="desc_endereco">Endere&ccedil;o</label>
+        <textarea name="desc_endereco" id="desc_endereco" class="textarea-form"></textarea>
+        <label for="desc_observacoes">Observa&ccedil;&otilde;es</label>
+        <textarea name="desc_observacoes" id="desc_observacoes" class="textarea-form"></textarea>
+    </fieldset>
+</form>

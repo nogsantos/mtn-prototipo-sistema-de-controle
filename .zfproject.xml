@@ -13,12 +13,15 @@
         </controllerFile>
         <controllerFile controllerName="Error"/>
       </controllersDirectory>
-      <formsDirectory enabled="false"/>
+      <formsDirectory enabled="false">
+        <formFile formName="Editoras"/>
+      </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
         <dbTableDirectory>
           <dbTableFile dbTableName="Alunos"/>
           <dbTableFile dbTableName="Professores"/>
+          <dbTableFile dbTableName="Editoras"/>
         </dbTableDirectory>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>

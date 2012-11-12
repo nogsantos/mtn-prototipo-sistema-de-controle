@@ -1,0 +1,31 @@
+<?php
+/**
+ * Formulário de Edição Editoras
+ */
+$this->title = 'Editora - Editar';
+$this->headTitle($this->title);
+?>
+<form name="form" id="editoras" enctype="application/x-www-form-urlencoded" action="<?php echo $this->url(array('action' => 'editar')); ?>" method="post">
+    <input type="hidden" name="numg_editora" value="<?php echo $this->oEditora['numg_editora'];?>" />
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav menu-forms">
+                <li>
+                    <a><button type="submit" class="btn">Editar <i class="icon-check"></i></button></a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'bl-editoras','action' => 'grid',)); ?>"><button class="btn">Cancelar <i class="icon-remove"></i></button></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <fieldset>
+        <legend>Edi&ccedil;&atilde;o de Editoras</legend>
+        <label for="desc_nome"><b>Nome*</b></label>
+        <input type="text" name="desc_nome" id="desc_nome" value="<?php print $this->oEditora['desc_nome']?>" class="input-form" autocomplete="off">
+        <label for="desc_endereco">Endere&ccedil;o</label>
+        <textarea name="desc_endereco" id="desc_endereco" class="textarea-form"><?php print $this->oEditora['desc_endereco']?></textarea>
+        <label for="desc_observacoes">Observa&ccedil;&otilde;es</label>
+        <textarea name="desc_observacoes" id="desc_observacoes" class="textarea-form"><?php print $this->oEditora['desc_observacoes']?></textarea>
+    </fieldset>
+</form>

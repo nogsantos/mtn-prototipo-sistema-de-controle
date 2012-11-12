@@ -1,0 +1,23 @@
+<?php
+$this->title = 'Editora - Excluir';
+$this->headTitle($this->title);
+?>
+<form action="<?php echo $this->url(array('action' => 'deletar')); ?>" method="post">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav menu-forms">
+                <li><a><input type="submit" name="action" value="Excluir" class="btn"></a></li>
+                <li><a href="<?php echo $this->url(array('controller' => 'bl-editoras','action' => 'grid',)); ?>"><button class="btn">Cancelar <i class="icon-remove"></i></button></a></li>
+            </ul>
+        </div>
+    </div>
+    <fieldset>
+        <legend>Exclus&atilde;o de Editora</legend>
+        <br />
+        <div class="alert"><strong>Aten&ccedil;&atilde;o!</strong> Confirma a exclus&atilde;o do item abaixo?</div>
+        <strong><?php echo $this->escape($this->oEditora['desc_nome']); ?></strong>
+        <div>
+            <input type="hidden" name="numg_editora" value="<?php echo $this->oEditora['numg_editora']; ?>" />
+        </div>
+    </fieldset>
+</form>

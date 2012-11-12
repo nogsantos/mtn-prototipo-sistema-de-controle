@@ -2,7 +2,7 @@
     $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
     $this->headTitle()->setSeparator(' - ');
     $this->headTitle('SCO-MTN');
-    echo $this->doctype(); 
+    //echo $this->doctype(); 
     /*
      * Foco link menu
      */
@@ -12,6 +12,7 @@
        case 'seminario': $this->seminario = true; break;
        case 'pessoas': $this->pessoas = true; break;
        case 'relatorios': $this->relatorios = true; break;
+       default: $this->default = true;break;
     }
 ?>
 <!DOCTYPE html>
@@ -52,7 +53,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="<?php echo $this->url(array('controller'=>'index','action'=>'grid'));?>">SCO-MTN</a>
+                    <a class="brand <?php echo $this->default ? 'active' : ''?>" href="<?php echo $this->url(array('controller'=>'index','action'=>'grid'));?>">SCO-MTN</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">                            
                             <li class="dropdown">
@@ -126,17 +127,17 @@
                 <p>&copy; Miss&atilde;o Tocando as Na&ccedil;&otilde;es <?php echo date('Y')?> - Desenvolvido por: <a href="http://www.nogsantos.com.br" target="_blank">Fabricio Nogueira</a> </p>
             </footer>
         </div> <!-- /container -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/jquery-1.8.2.min' ?>"></script>
         <script>window.jQuery || document.write('<script src="<?php print $this->baseUrl()?>/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
         <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/bootstrap.min.js' ?>"></script>
         <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/plugins.js' ?>"></script>
         <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/main.js' ?>"></script>        
-        <script>
+<!--        <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+        </script>-->
     </body>
 </html>
 
