@@ -17,3 +17,14 @@ body {
 .menu-forms ul{
     float: right !important;
 }
+.text-fade{
+    text-decoration: none !important;
+    color: #666;
+    text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    transition: all .2s linear;
+}
+.form-field-invalid{
+    border: 1px solid red !important;
+}

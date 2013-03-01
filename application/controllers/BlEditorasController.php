@@ -13,6 +13,10 @@ class BlEditorasController extends Zend_Controller_Action {
          * Mensagem para o formulário
          */
         $this->view->menssagens = $this->_helper->flashMessenger->getMessages();
+        /*
+         * Monta o menu principal
+         */
+        $this->_helper->actionStack('navigator', 'Menu');
     }
 
     public function indexAction() {
@@ -100,21 +104,13 @@ class BlEditorasController extends Zend_Controller_Action {
      */
     public function imprimirAction(){
         $oEditoras = new Application_Model_DbTable_Editoras();
-        $resEditoras = $oEditoras->fetchAll(null,'numg_editora desc');
-        
+        $resEditoras = $oEditoras->fetchAll(null,'numg_editora desc')->toArray();
+//        Zend_Debug::dump($resEditoras);exit;
         if(count($resEditoras) > 0){
             require_once 'Zend/Pdf.php';
-            //cria objeto
             $pdf = new Zend_Pdf();
-           /* Cria uma nova página pdf, neste caso define tamanho de folha A4
-            * Poderíamos usar da seguinte maneira: $pdf->newPage($x, $y) tamanho em px
-            * exemplo: $pdf->newPage('500', '500');
-            * A4 modo paisagem = SIZE_A4_LANDSCAPE
-            */
             $pdfPage = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
-            // Busca uma fonte para usarmos, neste caso: courier, poderíamos usar _VERDANA, etc...
             $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
-            // Aplica fonte
             $pdfPage->setFont($font, 12);
            /*
             * Como o próprio nome diz: escreve o texto;
@@ -123,18 +119,19 @@ class BlEditorasController extends Zend_Controller_Action {
             * estão nesse o formato.
             * Caso você tenha problemas com acentuação, retire esta propriedade
             */
-            $stringpos = 780; // posicao x do meu texto
-            $stringdif = 12; // diferença entre cada quebra de linha.
+            $stringpos = 10; // posicao x do meu texto
+            $stringdif = 50; // diferença entre cada quebra de linha.
             $pdfPage->drawText('Editoras',5, 800,'UTF-8');
+            
+            $pdfPage->drawText('Nome', 10, 10,'UTF-8');
+            $pdfPage->drawText(utf8_encode('Endereço'), 50, 10,'UTF-8');
+            $pdfPage->drawText(utf8_encode('Observação'), 150, 10,'UTF-8');
+            
             for($i=0;$i<count($resEditoras);$i++){
-                $pdfPage->drawText($resEditoras->desc_nome, 260, $stringpos, 'UTF-8');
-                $stringpos = ($stringpos-$stringdif); //subtrai para que a linha fique embaixo
+                $pdfPage->drawText($resEditoras[$i]['desc_nome'], 260, $stringpos, 'UTF-8');
+                $stringpos = ($stringpos+$stringdif); //subtrai para que a linha fique embaixo
             }
-            // adicionamos nossa página como a 1ª página de nosso documento
             $pdf->pages[0]= $pdfPage;
-            //Salvamos o documento Obs.: requer permissão para escrita na pasta (CHMOD);
-    //        $pdf->save('exemplo.pdf');
-            //Por fim, setamos a header como um PDF, e renderizamos o nosso $pdf;
             header('Content-type: application/pdf');
             echo $pdf->render(); 
         }
@@ -144,12 +141,6 @@ class BlEditorasController extends Zend_Controller_Action {
      */
     public function exportarAction(){
         
-    }
-    /**
-     * Redirecionamento para a página inicial do formulário
-     */
-    public function gridAction() {
-        $this->_helper->redirector('index');
     }
 }
 

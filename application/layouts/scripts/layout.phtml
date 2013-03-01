@@ -2,7 +2,6 @@
     $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
     $this->headTitle()->setSeparator(' - ');
     $this->headTitle('SCO-MTN');
-    //echo $this->doctype(); 
     /*
      * Foco link menu
      */
@@ -14,6 +13,11 @@
        case 'relatorios': $this->relatorios = true; break;
        default: $this->default = true;break;
     }
+    /*
+     * Identificando o usuário logado
+     */
+     $sessao = Zend_Auth::getInstance();
+     $cdUsuario = !empty($sessao->getIdentity()->cd_usuario) ? $sessao->getIdentity()->cd_usuario : '' ;
 ?>
 <!DOCTYPE html>
     <!--[if lt IE 7]>
@@ -39,105 +43,46 @@
         <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/main.css'); ?>
         <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/default.css'); ?>
         <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js' ?>"></script>
+        
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/jquery-1.8.2.min' ?>"></script>
+        <script>window.jQuery || document.write('<script src="<?php print $this->baseUrl()?>/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/bootstrap.min.js' ?>"></script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/plugins.js' ?>"></script>
+        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/main.js' ?>"></script>
+        
+        <?php if(isset($this->css) && is_array($this->css)) : ?>
+            <?php foreach ($this->css as $css) :?>
+                <link href="<?php echo $this->baseUrl() ?>/css/<?php echo $css ?>.css" rel="stylesheet" type="text/css" />
+            <?php endforeach;?>
+        <?php endif;?>
+        <?php if(isset($this->js) && is_array($this->js)) : ?>
+        <?php foreach ($this->js as $js) :?>
+            <script type="text/javascript" src="<?php echo $this->baseUrl() ?>/js/<?php echo $js ?>.js"></script>
+        <?php endforeach;?>
+        <?php endif;?>
+            
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <p class="chromeframe">Voc&ecirc; est&aacute; um browser antigo. <a href="http://browsehappy.com/">Aproveite para atualiz&aacute-lo hoje</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> e obtenha uma melhor navega&ccedil;&atilde;o.</p>
         <![endif]-->       
-        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand <?php echo $this->default ? 'active' : ''?>" href="<?php echo $this->url(array('controller'=>'index','action'=>'grid'));?>">SCO-MTN</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">                            
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle <?php echo $this->financeiro ? 'active' : ''?>" data-toggle="dropdown">Financeiro<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->url(array('controller'=>'fi-recibos','action'=>'grid'));?>">Recibo</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle <?php echo $this->biblioteca ? 'active' : ''?>" data-toggle="dropdown">Biblioteca<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-header">Livros</li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-editoras','action'=>'grid'));?>">Editora</a></li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-autores','action'=>'grid'));?>">Autor</a></li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-generos','action'=>'grid'));?>">Genero</a></li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-livros','action'=>'grid'));?>">Livro</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'bl-emprestimos','action'=>'grid'));?>">Empr&eacute;stimo</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle <?php echo $this->seminario ? 'active' : ''?>" data-toggle="dropdown">Semin&aacute;rio<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->url(array('controller'=>'se-turmas','action'=>'grid'));?>">Turma</a></li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'se-materias','action'=>'grid'));?>">Mat&eacute;ria</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle <?php echo $this->pessoas ? 'active' : ''?>" data-toggle="dropdown">Pessoas<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->url(array('controller'=>'pe-alunos','action'=>'grid'));?>">Aluno</a></li>
-                                    <li><a href="<?php echo $this->url(array('controller'=>'pe-professores','action'=>'grid'));?>">Professor</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle <?php echo $this->relatorios ? 'active' : ''?>" data-toggle="dropdown">Relat&oacute;rios<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-header">Financeiro</li>
-                                    <li><a href="#">Recibos</a></li>
-                                    <li class="divider"></li>
-                                    <li class="nav-header">Biblioteca</li>
-                                    <li><a href="#">Editoras</a></li>
-                                    <li><a href="#">Autores</a></li>
-                                    <li><a href="#">Generos</a></li>
-                                    <li><a href="#">Empr&eacute;stimos</a></li>
-                                    <li class="divider"></li>
-                                    <li class="nav-header">Semin&aacute;rio</li>
-                                    <li><a href="#">Alunos</a></li>
-                                    <li><a href="#">Professores</a></li>
-                                    <li><a href="#">Mat&eacute;rias</a></li>
-                                    <li><a href="#">Turmas</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-<!--                        <form class="navbar-form pull-right">
-                            <input class="span2" type="text" placeholder="Email">
-                            <input class="span2" type="password" placeholder="Password">
-                            <button type="submit" class="btn">Sign in</button>
-                        </form>
--->                        
-                    </div><!--/.nav-collapse -->
-                </div>
+        <?php if(isset($cdUsuario) && !empty($cdUsuario)) : ?>
+            <?php echo $this->layout()->menu; ?>
+            <div class="container">
+        <?php else : ?>
+            <div class="container">
+            <div class="alert alert-info">
+                <h1>Bem vindo ao sistema!</h1> Por favor identifique-se pelo formul&aacute;rio abaixo.
             </div>
-        </div>
-        <div class="container">      
+        <?php endif;?>
             <div id="content">
                 <?php echo $this->layout()->content; ?>
             </div>        
             <hr>
             <footer>
-                <p>&copy; Miss&atilde;o Tocando as Na&ccedil;&otilde;es <?php echo date('Y')?> - Desenvolvido por: <a href="http://www.nogsantos.com.br" target="_blank">Fabricio Nogueira</a> </p>
+                <p>&copy; Miss&atilde;o Tocando as Na&ccedil;&otilde;es <?php echo date('Y')?> <span class="pull-right">Desenvolvido por: <a href="http://www.nogsantos.com.br" target="_blank">Fabricio Nogueira</a></span> </p>
             </footer>
-        </div> <!-- /container -->
-        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/jquery-1.8.2.min' ?>"></script>
-        <script>window.jQuery || document.write('<script src="<?php print $this->baseUrl()?>/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/vendor/bootstrap.min.js' ?>"></script>
-        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/plugins.js' ?>"></script>
-        <script type="text/javascript" src="<?php print $this->baseUrl() . '/js/main.js' ?>"></script>        
-<!--        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>-->
+        </div>
     </body>
 </html>
 
